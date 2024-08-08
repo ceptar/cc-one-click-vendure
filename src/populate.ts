@@ -13,12 +13,10 @@ export async function populateOnFirstRun(config: VendureConfig) {
     const dbTablesAlreadyExist = await tablesExist(config);
     if (!dbTablesAlreadyExist) {
         console.log(`No Vendure tables found in DB. Populating database...`);
-        return populate(
-  () => bootstrap({
-    ...config,
+        return bootstrap({    ...config,
     dbConnectionOptions: {...config.dbConnectionOptions, synchronize: true}
   })
-).then(app => app.close())
+.then(app => app.close())
     } else {
         return;
     }
