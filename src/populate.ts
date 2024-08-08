@@ -14,18 +14,11 @@ export async function populateOnFirstRun(config: VendureConfig) {
     if (!dbTablesAlreadyExist) {
         console.log(`No Vendure tables found in DB. Populating database...`);
         return populate(
-            () => bootstrap({
-                ...config,
-                importExportOptions: {
-                    importAssetsDir: path.join(
-                        require.resolve('@vendure/create/assets/products.csv'),
-                        '../images'
-                    ),
-                },
-                dbConnectionOptions: {...config.dbConnectionOptions, synchronize: true}
-            }),
-
-        ).then(app => app.close())
+  () => bootstrap({
+    ...config,
+    dbConnectionOptions: {...config.dbConnectionOptions, synchronize: true}
+  })
+).then(app => app.close())
     } else {
         return;
     }
