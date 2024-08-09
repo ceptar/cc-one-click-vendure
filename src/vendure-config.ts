@@ -73,8 +73,9 @@ export const config: VendureConfig = {
     plugins: [
         AssetServerPlugin.init({
             route: 'assets',
-            assetUploadDir: process.env.ASSET_UPLOAD_DIR || path.join(__dirname, '../static/assets'),
-            assetUrlPrefix: 'https://app--server--27pcmjft5bys.code.run/assets/',
+            assetUploadDir: path.join(__dirname, '../static/assets'),
+            assetUrlPrefix: 'http://localhost:3000/assets/',
+      //      assetUrlPrefix: 'https://app--server--27pcmjft5bys.code.run/assets/',
             // If the MINIO_ENDPOINT environment variable is set, we'll use
             // Minio as the asset storage provider. Otherwise, we'll use the
             // default local provider.
