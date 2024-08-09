@@ -45,7 +45,7 @@ export const config: VendureConfig = {
         type: 'postgres',
         // See the README.md "Migrations" section for an explanation of
         // the `synchronize` and `migrations` options.
-        synchronize: false,
+        synchronize: true,
         migrations: [path.join(__dirname, './migrations/*.+(ts|js)')],
         logging: false,
         database: process.env.DB_NAME,
@@ -74,25 +74,27 @@ export const config: VendureConfig = {
         AssetServerPlugin.init({
             route: 'assets',
             assetUploadDir: process.env.ASSET_UPLOAD_DIR || path.join(__dirname, '../static/assets'),
+            assetUrlPrefix: 'https://app--server--27pcmjft5bys.code.run/assets/'
             // If the MINIO_ENDPOINT environment variable is set, we'll use
             // Minio as the asset storage provider. Otherwise, we'll use the
             // default local provider.
-            storageStrategyFactory: process.env.MINIO_ENDPOINT ?  configureS3AssetStorage({
-                bucket: 'vendure-assets',
-                credentials: {
-                    accessKeyId: process.env.MINIO_ACCESS_KEY,
-                    secretAccessKey: process.env.MINIO_SECRET_KEY,
-                },
-                nativeS3Configuration: {
-                    endpoint: process.env.MINIO_ENDPOINT,
-                    forcePathStyle: true,
-                    signatureVersion: 'v4',
+        }),
+         //   storageStrategyFactory: process.env.MINIO_ENDPOINT ?  configureS3AssetStorage({
+           //     bucket: 'vendure-assets',
+             //   credentials: {
+               //     accessKeyId: process.env.MINIO_ACCESS_KEY,
+                 //   secretAccessKey: process.env.MINIO_SECRET_KEY,
+            //    },
+              //  nativeS3Configuration: {
+                //    endpoint: process.env.MINIO_ENDPOINT,
+                  //  forcePathStyle: true,
+                    // signatureVersion: 'v4',
                     // The `region` is required by the AWS SDK even when using MinIO,
                     // so we just use a dummy value here.
-                    region: 'eu-west-1',
-                },
-            }) : undefined,
-        }),
+                //    region: 'eu-west-1',
+           //     },
+         //   }) : undefined,
+     //   }),
         DefaultJobQueuePlugin.init({ useDatabaseForBuffer: true }),
         DefaultSearchPlugin.init({ bufferUpdates: false, indexStockStatus: true }),
         EmailPlugin.init({
