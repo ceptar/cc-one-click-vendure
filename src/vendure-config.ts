@@ -6,6 +6,7 @@ import {
 } from '@vendure/core';
 import { defaultEmailHandlers, EmailPlugin } from '@vendure/email-plugin';
 import { AssetServerPlugin, configureS3AssetStorage } from '@vendure/asset-server-plugin';
+import { CustomAssetServerPlugin } from '../src/custom-asset-server-plugin';
 import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
 import 'dotenv/config';
 import path from 'path';
@@ -79,6 +80,7 @@ export const config: VendureConfig = {
             // Minio as the asset storage provider. Otherwise, we'll use the
             // default local provider.
         }),
+        CustomAssetServerPlugin,
          //   storageStrategyFactory: process.env.MINIO_ENDPOINT ?  configureS3AssetStorage({
            //     bucket: 'vendure-assets',
              //   credentials: {
