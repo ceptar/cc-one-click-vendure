@@ -7,14 +7,11 @@ import sharp from 'sharp';
 export class CustomAssetServerPlugin extends AssetServerPlugin {
   private readonly logger = new Logger(CustomAssetServerPlugin.name);
 
-  init(options: AssetServerOptions) {
-    return super.init({
-      ...options,
-      // Add any custom options here if needed
-    });
+  static init(options: AssetServerOptions) {
+    return super.init(options);
   }
 
-  async processAsset(asset: Asset, fileBuffer: Buffer): Promise<Asset> {
+  override async processAsset(asset: Asset, fileBuffer: Buffer): Promise<Asset> {
     try {
       // Set default focal point
       asset.focalPoint = { x: 0.5, y: 0.5 };
